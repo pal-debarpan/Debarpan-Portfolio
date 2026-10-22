@@ -117,69 +117,70 @@ export const SKILLS = [
 ];
 
 // site name
-export const SITE_NAME = "Ritesh Ganguly";
+export const SITE_NAME = "Debarpan Pal";
 
 // extra links
 export const EXTRA_LINKS = {
-  source_code: "https://github.com/ritesh22-oss",
-  linkedin: "https://www.linkedin.com/in/ritesh-ganguly-078103369",
+  source_code: "https://github.com/pal-debarpan",
+  linkedin: "https://www.linkedin.com/in/debarpan-pal-488998414",
 };
 
 // experiences
 export const EXPERIENCES = [
   {
-    title: "Web Developer",
-    date: "March 2023 – Present",
-    company_name: "Web Development",
+    title: "Secondary Education",
+    date: "April 2023 – May 2024",
+    company_name: "Kendriya Vidyalaya Sangathan",
     icon: web,
     iconBg: "#e0f2fe",
     points: [
-      "Deepened my understanding of front-end technologies like React.js, JavaScript, and CSS.",
-      "Learned how to implement responsive design principles to ensure that web applications work seamlessly across all devices.",
-      "Gained experience in cross-browser compatibility, ensuring that users across different platforms had a consistent experience.",
-      "Participated in code reviews, which enhanced my ability to write clean, maintainable code and communicate effectively with team members.",
+      "Completed my Secondary Education from Kendriya Vidyalaya Sangathan, Jalpaiguri, West Bengal.",
+      "Learned how to implement practical applications of Science, Math, Social Studies, Computer Science, English.",
+      "Worked with Python, NumPy, Pandas, and scikit-learn for data processing, analysis, and model development.",
+      "Explored supervised and unsupervised learning techniques.",
+      "Made AI/ML Titanic Prediction Model Project as the final project for Computer Science.",
+      "Secured 95.2%.",
     ],
   },
   {
-    title: "Machine Learning Engineer",
-    date: "2023 – Present",
-    company_name: "AI & Machine Learning",
+    title: "Higher Secondary Education",
+    date: "May 2024 – May 2026",
+    company_name: "Kendriya Vidyalaya Sangathan",
     icon: ml,
     iconBg: "#ffedd5",
     points: [
-      "Studied and applied machine learning algorithms to solve practical problems.",
-      "Worked with Python, NumPy, Pandas, and scikit-learn for data processing, analysis, and model development.",
-      "Explored supervised and unsupervised learning techniques.",
-      "Worked on data preprocessing, feature engineering, model training, and evaluation.",
-      "Explored neural networks, deep learning, and AI-based applications.",
-      "Improved model performance through experimentation and evaluation.",
-      "Worked on practical machine learning projects and continuously developed AI/ML skills.",
+      "Completed my Higher Secondary Education from Kendriya Vidyalaya Sangathan, Ranikhet, West Bengal.",
+      "Learned how to implement practical applications of Physics, Chemistry, Mathematics and Computer Science.",
+      "English and Yoga helped in learning new skills and public speaking.",
+      "Learned and Practiced Python in Computer Science till Intermediate level.",
+      "Learned Database Management Systems (DMBS)",
+      "Secured 92%.",
     ],
   },
   {
-    title: "React Native Developer",
-    company_name: "Mobile App Development",
+    title: "Vellore Institute of Technology",
+    company_name: "B.Tech CSE Core",
     icon: react,
     iconBg: "#fbc3bc",
-    date: "July 2024 – Present",
+    date: "July 2026 – Present",
     points: [
-      "Developed expertise in React Native, enabling me to build high-performing cross-platform mobile applications.",
-      "Worked on optimizing app performance for mobile devices, a crucial aspect of mobile app development.",
-      "Collaborated with UX/UI designers to ensure a seamless and intuitive mobile experience.",
-      "Enhanced my understanding of mobile-specific functionalities, including device sensors, push notifications, and offline capabilities.",
+      "Got Admission in VIT Vellore after securing good rank in VITEEE 2026.",
+      "Currently studying in 1st Semester",
+      "Got selected in Code2Create, a reputated hackathon during GraVITas.",
+      "Attended AWS Hands-on workshop, learning about Cloud Computation and DevOPs.",
     ],
   },
   {
-    title: "React.js Developer",
-    company_name: "Frontend Development",
+    title: "Things I Learned",
+    company_name: "Skills",
     icon: react,
     iconBg: "#b7e4c7",
-    date: "September 2024 – Present",
+    date: "July 2026 – Present",
     points: [
-      "Gained a deep understanding of React.js and state management tools like Redux.",
-      "Worked on implementing complex UI components and optimizing them for performance.",
-      "Contributed to building e-commerce features like product listings, shopping carts, and payment integrations.",
-      "Developed a keen understanding of how to tailor web applications to provide seamless shopping experiences for end users.",
+      "StudySync - Made my First Full-Stack Website including CRUD operations, with Python, Flask, HTML, CSS, JS, including secured JWT Authentication.",
+      "URLShawtie - Made an API for shortening an URL, using FastAPI, Python, HTML, CSS, with secured JWT Authentication.",
+      "RepoLens - A doctor for softwares, made during Code2Create, a renound hackathon in VIT.",
+      "Making more projects for Clubs and Chapter Recruitments",
     ],
   },
 ];
@@ -189,50 +190,50 @@ export const PROJECTS = [
   {
     iconUrl: youtube,
     theme: "btn-back-red",
-    name: "Modern UI/UX YouTube Clone",
+    name: "StudySync Study App",
     description:
-      "Explore my React.js-based YouTube clone, powered by Rapid API. Seamlessly navigate, search, and enjoy dynamic video content with a sleek and intuitive design.",
-    link: "http://yt-youtube.netlify.app/",
+      "A study management web application built using Python and Flask.",
+    link: "https://study-sync-seven-alpha.vercel.app/",
   },
   {
     iconUrl: threads,
     theme: "btn-back-green",
-    name: "Full Stack Threads Clone",
+    name: "URLShawtie",
     description:
-      'Created a full-stack replica of the popular discussion platform "Threads," enabling users to post and engage in threaded conversations.',
-    link: "https://threaad.vercel.app/",
+      'A production-ready URL shortener built with FastAPI, React, JavaScript, and PostgreSQL.',
+    link: "https://urlshawtie.vercel.app/",
   },
   {
     iconUrl: car,
     theme: "btn-back-blue",
-    name: "Car Finding App",
+    name: "RepoLens",
     description:
-      "Designed and built a mobile app for finding and comparing cars on the market, streamlining the car-buying process.",
-    link: "https://carhb.vercel.app/",
+      "A developer tool that analyzes repository dependencies to identify affected files, calculate change risk, and recommend targeted testing.",
+    link: "https://github.com/pal-debarpan/RepoLens",
   },
   {
     iconUrl: snappy,
     theme: "btn-back-pink",
-    name: "Online Chat Application",
+    name: "Event Ticketing System",
     description:
-      "Experience my chat app, built on React.js, Socket.io, and MongoDB. Enjoy seamless communication with a sleek design for an intuitive and engaging messaging experience.",
-    link: "https://snappy-chatapp.netlify.app/",
+      "Campus event ticketing system with automated email tickets and QR check-in.",
+    link: "https://github.com/pal-debarpan/event_ticketing_system",
   },
   {
     iconUrl: estate,
     theme: "btn-back-black",
-    name: "Real-Estate Application",
+    name: "Spotify Ad Controller",
     description:
-      "Developed a web application for real estate listings, facilitating property searches and connecting buyers with sellers.",
-    link: "https://real-estate-app-react.vercel.app/",
+      "Spotify advertisement detection and automation.",
+    link: "https://github.com/pal-debarpan/spotify-ad-controller",
   },
   {
     iconUrl: summiz,
     theme: "btn-back-yellow",
-    name: "AI Summarizer Application",
+    name: "SpinChore",
     description:
-      "App that leverages AI to automatically generate concise & informative summaries from lengthy text content, or blogs.",
-    link: "https://summise.netlify.app/",
+      "SpinChore helps roommates organize household chores, distribute responsibilities fairly, track completion, and maintain a history of completed tasks. It combines a simple interactive interface with a backend-driven assignment system designed to keep household chores organized and transparent.",
+    link: "https://spinchore-rose.vercel.app/",
   },
 ];
 

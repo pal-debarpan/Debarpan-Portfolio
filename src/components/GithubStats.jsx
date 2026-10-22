@@ -11,7 +11,7 @@ const GithubStats = () => {
 
   const [topRepos, setTopRepos] = useState([
     {
-      name: "Ritesh-Portfolio",
+      name: "Debarpan-Portfolio",
       description: "Interactive 3D developer portfolio showcasing full-stack and machine learning projects.",
       language: "JavaScript",
       stargazers_count: 0,
@@ -54,7 +54,7 @@ const GithubStats = () => {
         setIsLoading(true);
 
         // Fetch User Info
-        const userRes = await fetch("https://api.github.com/users/ritesh22-oss");
+        const userRes = await fetch("https://api.github.com/users/pal-debarpan");
         if (userRes.ok) {
           const user = await userRes.json();
           if (isMounted) {
@@ -68,7 +68,7 @@ const GithubStats = () => {
 
         // Fetch Top Repositories
         const reposRes = await fetch(
-          "https://api.github.com/users/ritesh22-oss/repos?per_page=6&sort=updated"
+          "https://api.github.com/users/pal-debarpan/repos?per_page=6&sort=updated"
         );
         if (reposRes.ok) {
           const repos = await reposRes.json();
@@ -116,7 +116,7 @@ const GithubStats = () => {
           aria-label="View Ritesh's GitHub Profile"
         >
           <img src={github} alt="GitHub" className="w-4 h-4 invert object-contain" />
-          <span>@ritesh22-oss</span>
+          <span>@pal-debarpan</span>
         </a>
       </div>
 
@@ -192,7 +192,7 @@ const GithubStats = () => {
         {/* Contribution Graph visualization */}
         <div className="w-full overflow-x-auto pb-2 flex justify-center">
           <img
-            src="https://ghchart.rshah.org/0072ff/ritesh22-oss"
+            src="https://ghchart.rshah.org/0072ff/pal-debarpan"
             alt="Ritesh's GitHub Contribution Chart"
             className="min-w-[650px] max-w-full h-auto object-contain rounded-xl p-2 bg-slate-50/70 border border-slate-200/60"
             loading="lazy"
@@ -216,7 +216,7 @@ const GithubStats = () => {
           </div>
 
           <a
-            href="https://github.com/ritesh22-oss?tab=repositories"
+            href="https://github.com/pal-debarpan?tab=repositories"
             target="_blank"
             rel="noopener noreferrer"
             className="text-xs sm:text-sm font-semibold text-blue-600 hover:text-blue-700 transition-colors inline-flex items-center gap-1"

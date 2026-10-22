@@ -177,7 +177,7 @@ const Contact = () => {
                 id="name"
                 name="name"
                 className="input disabled:cursor-not-allowed"
-                placeholder="Ritesh"
+                placeholder="Debarpan"
                 title="Name"
                 value={form.name}
                 onChange={handleChange}
@@ -196,7 +196,7 @@ const Contact = () => {
                 id="email"
                 name="email"
                 className="input disabled:cursor-not-allowed"
-                placeholder="ritesh12@gmail.com"
+                placeholder="debarpan32008@gmail.com"
                 value={form.email}
                 title="Email"
                 onChange={handleChange}

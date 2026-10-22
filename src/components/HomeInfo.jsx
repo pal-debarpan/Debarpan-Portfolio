@@ -21,14 +21,14 @@ const InfoBox = ({ text, link, btnText }) => (
 const renderContent = {
   1: (
     <h1 className="sm:text-xl sm:leading-snug text-center neo-brutalism-blue py-4 px-8 text-white mx-5">
-      Hi, I am <span className="font-semibold">{SITE_NAME.split(" ")[0]}</span>
-      👋
-      <br />A Web Designer from India.
+      Hello, I am <span className="font-semibold">Debarpan Pal</span>
+      
+      <br />An Aspiring Software Developer from India.
     </h1>
   ),
   2: (
     <InfoBox
-      text="Worked with many companies and picked up many skills along the way."
+      text="My journey and the skills I learned throughout."
       link="/about"
       btnText="Learn more"
     />
