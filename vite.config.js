@@ -4,7 +4,8 @@ import react from "@vitejs/plugin-react";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: "./",
+  // Use root-based asset URLs so Vercel can serve assets from every SPA route.
+  base: "/",
   server: {
     host: "0.0.0.0",
     port: 3000,
@@ -16,9 +17,9 @@ export default defineConfig({
       registerType: "prompt",
       includeAssets: ["favicon.ico", "apple-touch-icon.png"],
       manifest: {
-        name: "Sanidhya - 3D Portfolio",
-        short_name: "Sanidhya",
-        description: "Amazing 3D Portfolio in React using Three.js",
+        name: "Debarpan Pal - Portfolio",
+        short_name: "Debarpan",
+        description: "Debarpan Pal's interactive 3D developer portfolio.",
         icons: [
           {
             src: "/android-chrome-192x192.png",

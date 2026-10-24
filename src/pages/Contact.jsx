@@ -7,7 +7,8 @@ import { BackToIsland, Loader, Alert } from "../components";
 
 import { Fox } from "../models";
 import useAlert from "../hooks/useAlert";
-import { SITE_NAME } from "../constants";
+import { EXTRA_LINKS, SITE_NAME } from "../constants";
+import { github, linkedin } from "../assets/icons";
 
 // Web3Forms public access key (supports VITE_WEB3FORMS_ACCESS_KEY env variable with user default fallback)
 const WEB3FORMS_ACCESS_KEY =
@@ -145,6 +146,29 @@ const Contact = () => {
           <p className="mt-3 text-slate-500 text-sm sm:text-base">
             Have a project or want to collaborate? Send a message and let&apos;s connect!
           </p>
+
+          <div className="mt-5 flex flex-wrap items-center gap-3">
+            <a
+              href={EXTRA_LINKS.linkedin}
+              target="_blank"
+              rel="noreferrer noopener"
+              className="inline-flex items-center gap-3 rounded-xl bg-[#0a66c2] px-5 py-3 text-sm font-semibold text-white shadow-md transition-all hover:-translate-y-0.5 hover:bg-[#004182] hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-[#0a66c2] focus:ring-offset-2 sm:text-base"
+              aria-label="Connect with Debarpan Pal on LinkedIn"
+            >
+              <img src={linkedin} alt="" aria-hidden="true" className="h-5 w-5 brightness-0 invert" />
+              Connect on LinkedIn
+            </a>
+            <a
+              href={EXTRA_LINKS.source_code}
+              target="_blank"
+              rel="noreferrer noopener"
+              className="inline-flex items-center gap-3 rounded-xl bg-slate-900 px-5 py-3 text-sm font-semibold text-white shadow-md transition-all hover:-translate-y-0.5 hover:bg-slate-700 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-slate-900 focus:ring-offset-2 sm:text-base"
+              aria-label="Visit Debarpan Pal's GitHub profile"
+            >
+              <img src={github} alt="" aria-hidden="true" className="h-5 w-5 brightness-0 invert" />
+              View GitHub
+            </a>
+          </div>
 
           {/* contact form */}
           <form
