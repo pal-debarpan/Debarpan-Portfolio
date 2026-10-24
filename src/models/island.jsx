@@ -17,7 +17,14 @@ import { a } from "@react-spring/three";
 import islandScene from "../assets/3d/island.glb";
 
 // Island component definition
-const Island = ({ isRotating, setIsRotating, setCurrentStage, isInteractive, ...props }) => {
+const Island = ({
+  isRotating,
+  setIsRotating,
+  setCurrentStage,
+  isInteractive,
+  onReady,
+  ...props
+}) => {
   // Create a reference for the island group
   const islandRef = useRef();
 
@@ -26,6 +33,13 @@ const Island = ({ isRotating, setIsRotating, setCurrentStage, isInteractive, ...
 
   // Load the 3D model using useGLTF hook
   const { nodes, materials } = useGLTF(islandScene);
+
+  // This component mounts only after useGLTF has resolved. Wait one frame so
+  // the model has been committed to the canvas before reporting it as ready.
+  useEffect(() => {
+    const frame = window.requestAnimationFrame(() => onReady?.());
+    return () => window.cancelAnimationFrame(frame);
+  }, [onReady]);
 
   // Create refs for tracking last X position, rotation speed, and initial rotation
   const lastX = useRef(0);

@@ -1,4 +1,4 @@
-import { Suspense, useState, useEffect } from "react";
+import { Suspense, useState, useEffect, useCallback } from "react";
 import { Canvas } from "@react-three/fiber";
 import { Helmet } from "react-helmet-async";
 import { useLocation } from "react-router-dom";
@@ -33,6 +33,31 @@ const Home = ({ isPlayingMusic, onToggleMusic }) => {
   const [hasSeenGuide, setHasSeenGuide] = useState(
     location.state?.guideDismissed === true
   );
+  const [guideReady, setGuideReady] = useState(
+    location.state?.guideDismissed === true
+  );
+  const [islandReady, setIslandReady] = useState(false);
+
+  const markGuideReady = useCallback((node) => {
+    if (node) setGuideReady(true);
+  }, []);
+
+  const markIslandReady = useCallback(() => {
+    setIslandReady(true);
+  }, []);
+
+  useEffect(() => {
+    // On Vercel, a stale or interrupted initial load can leave the 3D scene on
+    // its loader indefinitely. Keep retrying only until both the guide and the
+    // island have actually mounted; a successful scene never schedules a reload.
+    if (!import.meta.env.PROD || (guideReady && islandReady)) return undefined;
+
+    const retryTimer = window.setTimeout(() => {
+      window.location.reload();
+    }, 15000);
+
+    return () => window.clearTimeout(retryTimer);
+  }, [guideReady, islandReady]);
 
   // Dynamic screen dimensions state to handle window resizing / orientation change
   const [screenSize, setScreenSize] = useState({
@@ -111,7 +136,11 @@ const Home = ({ isPlayingMusic, onToggleMusic }) => {
 
       {/* home section */}
       <section className="w-full h-screen relative overflow-hidden">
-        {!hasSeenGuide && <IslandGuide onDismiss={() => setHasSeenGuide(true)} />}
+        {!hasSeenGuide && (
+          <div ref={markGuideReady}>
+            <IslandGuide onDismiss={() => setHasSeenGuide(true)} />
+          </div>
+        )}
 
         {/* current stage info banner */}
         <div className="absolute top-20 sm:top-28 left-0 right-0 z-20 flex items-center justify-center px-4 pointer-events-none">
@@ -156,6 +185,7 @@ const Home = ({ isPlayingMusic, onToggleMusic }) => {
               setIsRotating={setIsRotating}
               setCurrentStage={setCurrentStage}
               isInteractive={hasSeenGuide}
+              onReady={markIslandReady}
             />
 
             {/* Plane component with rotation control, scale, position, and initial rotation */}
