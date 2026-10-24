@@ -3,7 +3,7 @@ import { Canvas } from "@react-three/fiber";
 import { Helmet } from "react-helmet-async";
 
 // components
-import { Loader, Alert } from "../components";
+import { BackToIsland, Loader, Alert } from "../components";
 
 import { Fox } from "../models";
 import useAlert from "../hooks/useAlert";
@@ -131,11 +131,15 @@ const Contact = () => {
 
       {/* contact section */}
       <section className="relative flex lg:flex-row flex-col max-container min-h-[calc(100vh-80px)] lg:h-auto gap-8 sm:gap-12 pb-16">
+        <div className="absolute top-20 left-4 sm:left-8 md:left-16 z-50 pointer-events-auto">
+          <BackToIsland />
+        </div>
+
         {/* show alert on form submit */}
         {alert.show && <Alert {...alert} />}
 
         {/* get in touch */}
-        <div className="flex-1 min-w-[50%] flex flex-col justify-center">
+        <div className="flex-1 min-w-[50%] flex flex-col justify-center pt-14 lg:pt-0">
           {/* head text */}
           <h1 className="head-text">Get in Touch</h1>
           <p className="mt-3 text-slate-500 text-sm sm:text-base">

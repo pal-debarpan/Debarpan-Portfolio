@@ -17,7 +17,7 @@ import { a } from "@react-spring/three";
 import islandScene from "../assets/3d/island.glb";
 
 // Island component definition
-const Island = ({ isRotating, setIsRotating, setCurrentStage, ...props }) => {
+const Island = ({ isRotating, setIsRotating, setCurrentStage, isInteractive, ...props }) => {
   // Create a reference for the island group
   const islandRef = useRef();
 
@@ -35,6 +35,7 @@ const Island = ({ isRotating, setIsRotating, setCurrentStage, ...props }) => {
   // Event handlers for pointer and keyboard input
   const handlePointerDown = useCallback(
     (e) => {
+      if (!isInteractive) return;
       e.stopPropagation();
       e.preventDefault();
       setIsRotating(true);
@@ -42,20 +43,22 @@ const Island = ({ isRotating, setIsRotating, setCurrentStage, ...props }) => {
       const clientX = e.touches ? e.touches[0].clientX : e.clientX;
       lastX.current = clientX;
     },
-    [setIsRotating]
+    [isInteractive, setIsRotating]
   );
 
   const handlePointerUp = useCallback(
     (e) => {
+      if (!isInteractive) return;
       e.stopPropagation();
       e.preventDefault();
       setIsRotating(false);
     },
-    [setIsRotating]
+    [isInteractive, setIsRotating]
   );
 
   const handlePointerMove = useCallback(
     (e) => {
+      if (!isInteractive) return;
       e.stopPropagation();
       e.preventDefault();
 
@@ -69,11 +72,12 @@ const Island = ({ isRotating, setIsRotating, setCurrentStage, ...props }) => {
         rotationSpeed.current = delta * 0.01 * Math.PI;
       }
     },
-    [viewport.width, isRotating]
+    [viewport.width, isInteractive, isRotating]
   );
 
   const handleKeyDown = useCallback(
     (e) => {
+      if (!isInteractive) return;
       // Rotate the island based on arrow key press
       if (e.key === "ArrowLeft" || e.key === "ArrowRight") {
         if (!isRotating) setIsRotating(true);
@@ -82,15 +86,16 @@ const Island = ({ isRotating, setIsRotating, setCurrentStage, ...props }) => {
         rotationSpeed.current = (e.key === "ArrowLeft" ? 1 : -1) * 0.0125;
       }
     },
-    [isRotating, setIsRotating]
+    [isInteractive, isRotating, setIsRotating]
   );
 
   const handleKeyUp = useCallback(
     (e) => {
+      if (!isInteractive) return;
       // Stop rotating when arrow key is released
       if (e.key === "ArrowLeft" || e.key === "ArrowRight") setIsRotating(false);
     },
-    [setIsRotating]
+    [isInteractive, setIsRotating]
   );
 
   // Use useFrame hook for animation logic

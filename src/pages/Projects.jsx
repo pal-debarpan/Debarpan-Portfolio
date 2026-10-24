@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 
 // components
-import { Cta, GithubStats } from "../components";
+import { BackToIsland, Cta, GithubStats } from "../components";
 
 // constants
 import { PROJECTS, SITE_NAME } from "../constants";
@@ -21,8 +21,10 @@ const Projects = () => {
 
       {/* projects section */}
       <section className="max-container">
+        <BackToIsland />
+
         {/* projects head */}
-        <h1 className="head-text">
+        <h1 className="head-text mt-7">
           My{" "}
           <span className="blue-gradient_text font-semibold drop-shadow">
             Projects

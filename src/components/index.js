@@ -8,6 +8,8 @@ import Loader from "./Loader";
 import Navbar from "./Navbar";
 import Testimonials from "./Testimonials";
 import GithubStats from "./GithubStats";
+import IslandGuide from "./IslandGuide";
+import BackToIsland from "./BackToIsland";
 
 // export components
-export { Alert, Cta, HomeInfo, Loader, Navbar, Testimonials, GithubStats };
+export { Alert, Cta, HomeInfo, Loader, Navbar, Testimonials, GithubStats, IslandGuide, BackToIsland };

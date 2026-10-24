@@ -1,88 +1,38 @@
-import { Suspense, useState, useEffect, useRef } from "react";
+import { Suspense, useState, useEffect } from "react";
 import { Canvas } from "@react-three/fiber";
 import { Helmet } from "react-helmet-async";
+import { useLocation } from "react-router-dom";
 
 // components
-import { Loader, HomeInfo } from "../components";
+import { Loader, HomeInfo, IslandGuide } from "../components";
 
 // models
 import { Island, Sky, Bird, Plane } from "../models";
 
 // assets
-import sakura from "../assets/sakura.mp3";
 import { soundoff, soundon } from "../assets/icons";
 
 // constants
 import { SITE_NAME } from "../constants";
 
+const ISLAND_STAGE_ROTATIONS = {
+  1: 4.7,
+  2: 2.5,
+  3: 1.05,
+  4: 5.65,
+};
+
 // home
-const Home = () => {
-  // refs
-  const audioRef = useRef(new Audio(sakura));
-  // update audio ref
-  audioRef.current.volume = 0.4;
-  audioRef.current.loop = true;
+const Home = ({ isPlayingMusic, onToggleMusic }) => {
+  const location = useLocation();
+  const returnStage = location.state?.returnStage;
 
   // states
   const [isRotating, setIsRotating] = useState(false);
-  const [currentStage, setCurrentStage] = useState(1);
-  const [isPlayingMusic, setIsPlayingMusic] = useState(true);
-
-  // Auto-play music on mount with browser autoplay policy handling
-  useEffect(() => {
-    const audio = audioRef.current;
-    if (!audio) return;
-
-    let hasStarted = false;
-
-    // Function to attempt playback
-    const startAudio = () => {
-      if (hasStarted) return;
-      audio
-        .play()
-        .then(() => {
-          hasStarted = true;
-          setIsPlayingMusic(true);
-          // Remove interaction listeners once successfully playing
-          window.removeEventListener("click", startAudio);
-          window.removeEventListener("touchstart", startAudio);
-          window.removeEventListener("keydown", startAudio);
-        })
-        .catch(() => {
-          // If browser blocked immediate unprompted autoplay, wait for first user gesture
-        });
-    };
-
-    // Try starting immediately
-    startAudio();
-
-    // Browser autoplay policy fallback: start as soon as user touches or clicks anywhere
-    window.addEventListener("click", startAudio, { once: true });
-    window.addEventListener("touchstart", startAudio, { once: true });
-    window.addEventListener("keydown", startAudio, { once: true });
-
-    return () => {
-      window.removeEventListener("click", startAudio);
-      window.removeEventListener("touchstart", startAudio);
-      window.removeEventListener("keydown", startAudio);
-    };
-  }, []);
-
-  // On music state toggle
-  useEffect(() => {
-    const audio = audioRef.current;
-    if (!audio) return;
-
-    if (isPlayingMusic) {
-      audio.play().catch(() => {});
-    } else {
-      audio.pause();
-    }
-
-    return () => {
-      audio.pause();
-    };
-  }, [isPlayingMusic]);
+  const [currentStage, setCurrentStage] = useState(returnStage || 1);
+  const [hasSeenGuide, setHasSeenGuide] = useState(
+    location.state?.guideDismissed === true
+  );
 
   // Dynamic screen dimensions state to handle window resizing / orientation change
   const [screenSize, setScreenSize] = useState({
@@ -109,7 +59,7 @@ const Home = () => {
   const adjustIslandForScreenSize = () => {
     let screenScale = null;
     let screenPosition = [0, -6.5, -43];
-    let rotation = [0.1, 4.7, 0];
+    const rotation = [0.1, ISLAND_STAGE_ROTATIONS[returnStage] || ISLAND_STAGE_ROTATIONS[1], 0];
 
     // Responsive scaling based on device viewport
     if (screenSize.width < 440) {
@@ -161,6 +111,8 @@ const Home = () => {
 
       {/* home section */}
       <section className="w-full h-screen relative overflow-hidden">
+        {!hasSeenGuide && <IslandGuide onDismiss={() => setHasSeenGuide(true)} />}
+
         {/* current stage info banner */}
         <div className="absolute top-20 sm:top-28 left-0 right-0 z-20 flex items-center justify-center px-4 pointer-events-none">
           <div className="pointer-events-auto max-w-lg w-full flex justify-center">
@@ -170,7 +122,7 @@ const Home = () => {
         {/* Three.js Canvas Component */}
         <Canvas
           className={`w-full h-screen bg-transparent ${
-            isRotating ? "cursor-grabbing" : "cursor-grab"
+            hasSeenGuide ? (isRotating ? "cursor-grabbing" : "cursor-grab") : "cursor-default"
           }`}
           camera={{ near: 0.1, far: 1000 }}
         >
@@ -203,6 +155,7 @@ const Home = () => {
               isRotating={isRotating}
               setIsRotating={setIsRotating}
               setCurrentStage={setCurrentStage}
+              isInteractive={hasSeenGuide}
             />
 
             {/* Plane component with rotation control, scale, position, and initial rotation */}
@@ -224,7 +177,7 @@ const Home = () => {
             src={isPlayingMusic ? soundon : soundoff}
             alt={isPlayingMusic ? "Sound On" : "Sound Off"}
             className="w-10 h-10 cursor-pointer object-contain"
-            onClick={() => setIsPlayingMusic(!isPlayingMusic)}
+            onClick={onToggleMusic}
           />
         </aside>
       </section>

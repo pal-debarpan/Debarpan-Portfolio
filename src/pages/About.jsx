@@ -5,7 +5,7 @@ import {
 import { Helmet } from "react-helmet-async";
 
 // components
-import { Cta, GithubStats } from "../components";
+import { BackToIsland, Cta, GithubStats } from "../components";
 
 // constants
 import { SKILLS, EXPERIENCES, SITE_NAME } from "../constants";
@@ -23,8 +23,10 @@ const About = () => {
 
       {/* about section */}
       <section className="max-container">
+        <BackToIsland />
+
         {/* about head */}
-        <h1 className="head-text">
+        <h1 className="head-text mt-7">
           Hello, I&apos;m{" "}
           <span className="blue-gradient_text font-semibold drop-shadow">
             {SITE_NAME.split(" ")[0]}
