@@ -47,17 +47,19 @@ const Home = ({ isPlayingMusic, onToggleMusic }) => {
   }, []);
 
   useEffect(() => {
-    // On Vercel, a stale or interrupted initial load can leave the 3D scene on
-    // its loader indefinitely. Keep retrying only until both the guide and the
-    // island have actually mounted; a successful scene never schedules a reload.
-    if (!import.meta.env.PROD || (guideReady && islandReady)) return undefined;
+    // An interrupted GLTF/WebGL load can leave the landing page on its loader.
+    // Each fresh page load starts this guard again, so retry until both the
+    // onboarding dialog and a rendered island have confirmed themselves ready.
+    // Keep this enabled in development too, which makes the behavior testable
+    // locally and prevents environment-specific startup failures.
+    if ((hasSeenGuide || guideReady) && islandReady) return undefined;
 
     const retryTimer = window.setTimeout(() => {
       window.location.reload();
-    }, 15000);
+    }, 2000);
 
     return () => window.clearTimeout(retryTimer);
-  }, [guideReady, islandReady]);
+  }, [hasSeenGuide, guideReady, islandReady]);
 
   // Dynamic screen dimensions state to handle window resizing / orientation change
   const [screenSize, setScreenSize] = useState({
