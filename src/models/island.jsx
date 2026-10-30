@@ -22,7 +22,6 @@ const Island = ({
   setIsRotating,
   setCurrentStage,
   isInteractive,
-  onReady,
   ...props
 }) => {
   // Create a reference for the island group
@@ -33,13 +32,6 @@ const Island = ({
 
   // Load the 3D model using useGLTF hook
   const { nodes, materials } = useGLTF(islandScene);
-
-  // `useGLTF` resolving means the model is available, but not necessarily that
-  // it has reached the screen. Report readiness only after the canvas has
-  // rendered the model for two frames. The Home retry guard uses this signal to
-  // decide whether another page reload is needed.
-  const renderedFrames = useRef(0);
-  const hasReportedReady = useRef(false);
 
   // Create refs for tracking last X position, rotation speed, and initial rotation
   const lastX = useRef(0);
@@ -114,15 +106,6 @@ const Island = ({
 
   // Use useFrame hook for animation logic
   useFrame(() => {
-    if (!hasReportedReady.current) {
-      renderedFrames.current += 1;
-
-      if (renderedFrames.current >= 2) {
-        hasReportedReady.current = true;
-        onReady?.();
-      }
-    }
-
     if (!isRotating) {
       // Damping effect when not rotating
       rotationSpeed.current *= dampingFactor;

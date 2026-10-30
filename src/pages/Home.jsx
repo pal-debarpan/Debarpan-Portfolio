@@ -1,4 +1,4 @@
-import { Suspense, useState, useEffect, useCallback } from "react";
+import { Suspense, useState, useEffect } from "react";
 import { Canvas } from "@react-three/fiber";
 import { Helmet } from "react-helmet-async";
 import { useLocation } from "react-router-dom";
@@ -33,34 +33,6 @@ const Home = ({ isPlayingMusic, onToggleMusic }) => {
   const [hasSeenGuide, setHasSeenGuide] = useState(
     location.state?.guideDismissed === true
   );
-  const [guideReady, setGuideReady] = useState(
-    location.state?.guideDismissed === true
-  );
-  const [islandReady, setIslandReady] = useState(false);
-
-  const markGuideReady = useCallback((node) => {
-    if (node) setGuideReady(true);
-  }, []);
-
-  const markIslandReady = useCallback(() => {
-    setIslandReady(true);
-  }, []);
-
-  useEffect(() => {
-    // An interrupted GLTF/WebGL load can leave the landing page on its loader.
-    // Each fresh page load starts this guard again, so retry until both the
-    // onboarding dialog and a rendered island have confirmed themselves ready.
-    // Keep this enabled in development too, which makes the behavior testable
-    // locally and prevents environment-specific startup failures.
-    if ((hasSeenGuide || guideReady) && islandReady) return undefined;
-
-    const retryTimer = window.setTimeout(() => {
-      window.location.reload();
-    }, 2000);
-
-    return () => window.clearTimeout(retryTimer);
-  }, [hasSeenGuide, guideReady, islandReady]);
-
   // Dynamic screen dimensions state to handle window resizing / orientation change
   const [screenSize, setScreenSize] = useState({
     width: typeof window !== "undefined" ? window.innerWidth : 1200,
@@ -139,7 +111,7 @@ const Home = ({ isPlayingMusic, onToggleMusic }) => {
       {/* home section */}
       <section className="w-full h-screen relative overflow-hidden">
         {!hasSeenGuide && (
-          <div ref={markGuideReady}>
+          <div>
             <IslandGuide onDismiss={() => setHasSeenGuide(true)} />
           </div>
         )}
@@ -157,28 +129,16 @@ const Home = ({ isPlayingMusic, onToggleMusic }) => {
           }`}
           camera={{ near: 0.1, far: 1000 }}
         >
-          {/* Suspense for handling loading state */}
+          <directionalLight position={[1, 1, 1]} intensity={2} />
+          <ambientLight intensity={0.5} />
+          <hemisphereLight
+            skyColor="#b1e1ff"
+            groundColor="#000000"
+            intensity={1}
+          />
+
+          {/* The interactive island renders as soon as its own model loads. */}
           <Suspense fallback={<Loader />}>
-            {/* Directional light for realistic lighting */}
-            <directionalLight position={[1, 1, 1]} intensity={2} />
-
-            {/* Ambient light for overall scene illumination */}
-            <ambientLight intensity={0.5} />
-
-            {/* Hemisphere light for sky and ground color */}
-            <hemisphereLight
-              skyColor="#b1e1ff"
-              groundColor="#000000"
-              intensity={1}
-            />
-
-            {/* Bird component */}
-            <Bird />
-
-            {/* Sky component with rotation control */}
-            <Sky isRotating={isRotating} />
-
-            {/* Island component with dynamic position, scale, rotation, and interaction props */}
             <Island
               position={islandPosition}
               scale={islandScale}
@@ -187,10 +147,13 @@ const Home = ({ isPlayingMusic, onToggleMusic }) => {
               setIsRotating={setIsRotating}
               setCurrentStage={setCurrentStage}
               isInteractive={hasSeenGuide}
-              onReady={markIslandReady}
             />
+          </Suspense>
 
-            {/* Plane component with rotation control, scale, position, and initial rotation */}
+          {/* Decorative models load independently and never delay the island. */}
+          <Suspense fallback={null}>
+            <Bird />
+            <Sky isRotating={isRotating} />
             <Plane
               isRotating={isRotating}
               scale={planeScale}
