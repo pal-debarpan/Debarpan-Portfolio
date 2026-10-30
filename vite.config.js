@@ -14,7 +14,15 @@ export default defineConfig({
   plugins: [
     react(),
     VitePWA({
-      registerType: "prompt",
+      // A portfolio must always serve the current Vercel deployment. Prompt
+      // updates can leave a previous build (including old page logic) running
+      // indefinitely when there is no custom update prompt in the UI.
+      registerType: "autoUpdate",
+      workbox: {
+        cleanupOutdatedCaches: true,
+        clientsClaim: true,
+        skipWaiting: true,
+      },
       includeAssets: ["favicon.ico", "apple-touch-icon.png"],
       manifest: {
         name: "Debarpan Pal - Portfolio",
